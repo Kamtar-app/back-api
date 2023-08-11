@@ -6,6 +6,20 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  userId         Int      @id @default(autoincrement())
+  firstname      String   @db.VarChar(50)
+  lastname       String   @db.VarChar(50)
+  companyName    String?  @db.VarChar(255)
+  siret          String?  @db.VarChar(20)
+  phoneNumber    String   @db.VarChar(25)
+  email          String   @unique @db.VarChar(300)
+  password       String   @db.VarChar(255)
+  isVisibleOnMap Boolean?
+  createAt       DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
