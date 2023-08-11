@@ -8,10 +8,8 @@ import * as bcrypt from 'bcrypt';
 import { SignupDto } from './dto/signupDto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SigninDto } from './dto/signinDto';
-import * as speakeasy from 'speakeasy';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { resetPasswordDemandDto } from './dto/resetPasswordDemandDto';
 
 @Injectable()
 export class AuthService {
@@ -76,22 +74,5 @@ export class AuthService {
         email: user.email,
       },
     };
-  }
-
-  async resetPasswordDemand(resetPasswordDemandDto: resetPasswordDemandDto) {
-    const { email } = resetPasswordDemandDto;
-
-    // find user by email
-    const user = await this.prismaService.user.findUnique({ where: { email } });
-    if (!user) throw new NotFoundException('User not found');
-
-    const code = speakeasy.totp({
-      secret: this.configService.get('OTP_CODE'),
-      digits: 5,
-      step: 60 * 15,
-      encoding: 'base32',
-    });
-
-    const url = 'http://127.0.0.1:3000/auth/reset-password-confirmation';
   }
 }
