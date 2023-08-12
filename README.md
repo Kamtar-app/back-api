@@ -59,6 +59,11 @@ $ nest g s nomService --no-spec
 
 ## Packages
 
-- bcrypt
-- JWT token
-- Speackeasy
+- bcrypt : hash password
+- JWT token : use to generate token
+- OpenAPI (Swagger) : a language-agnostic definition format used to describe RESTful APIs
+
+## Documentation
+
+OpenAPI
+See documentation : http://localhost:3000/api
