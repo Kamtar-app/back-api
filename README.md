@@ -1,50 +1,28 @@
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
 ## Installation
 
 ```bash
 $ npm install
-```
 
-## Running the app
+# ajouter la migration à la bdd
+$ npx prisma db push
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# générer et ajouter de fausses données dans la bdd
+$ npx prisma db seed
 ```
 
 ## Prisma
 
 ```bash
-# afficher la bdd et les données
+# visualiser la bdd et les données
 $ npx prisma studio
 
-#faire une migration
-$ npx prisma migrate dev
-
-# modifier la bdd en ajoutant / supprimant des colonnes, tables ...
+# ajouter la migration à la bdd : modifier la bdd en ajoutant / supprimant des colonnes, tables ...
 $ npx prisma db push
+
+# lancer une migration
+$ npx prisma migrate dev
 
 # --no-spec => ignorer le fichier de test
 # créer un nouveau module
@@ -57,13 +35,16 @@ $ nest g co nomController --no-spec
 $ nest g s nomService --no-spec
 ```
 
+## Fixtures
+
+```bash
+# générer et ajouter de fausses données dans la bdd
+$ npx prisma db seed
+```
+
 ## Packages
 
 - bcrypt : hash password
 - JWT token : use to generate token
 - OpenAPI (Swagger) : a language-agnostic definition format used to describe RESTful APIs
-
-## Documentation
-
-OpenAPI
-See documentation : http://localhost:3000/api
+- FakerJs : library that generates fake (but reasonable) data

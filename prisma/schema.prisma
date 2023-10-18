@@ -23,7 +23,7 @@ model User {
   createdAt            DateTime              @default(now())
   updatedAt            DateTime              @updatedAt
   role                 Role                  @relation(fields: [roleId], references: [id])
-  roleId               Int                   @unique
+  roleId               Int
   places               Place[]
   comments             Comment[]
   rates                Rate[]
@@ -51,7 +51,7 @@ model Place {
   phoneNumber        String              @db.VarChar(25)
   email              String              @unique @db.VarChar(300)
   latitude           Float               @db.Float
-  longitutde         Float               @db.Float
+  longitude          Float               @db.Float
   zipCode            String              @db.VarChar(20)
   address            String              @db.VarChar(300)
   city               String              @db.VarChar(100)
@@ -61,7 +61,7 @@ model Place {
   averageRates       Float               @db.Float
   createdAt          DateTime            @default(now())
   user               User                @relation(fields: [userId], references: [id])
-  userId             Int                 @unique
+  userId             Int
   comments           Comment[]
   rates              Rate[]
   reports            Report[]
@@ -73,12 +73,12 @@ model Comment {
   id              Int       @id @default(autoincrement())
   content         String    @db.Text
   createdAt       DateTime  @default(now())
-  user            User?     @relation(fields: [userId], references: [id])
-  userId          Int?      @unique
-  place           Place?    @relation(fields: [placeId], references: [id])
-  placeId         Int?      @unique
-  parentCommentId Int?      @unique
-  parentComment   Comment?  @relation("ParentComment", fields: [id], references: [id])
+  user            User      @relation(fields: [userId], references: [id])
+  userId          Int
+  place           Place     @relation(fields: [placeId], references: [id])
+  placeId         Int
+  parentCommentId Int?
+  parentComment   Comment?  @relation("ParentComment", fields: [parentCommentId], references: [id])
   responses       Comment[] @relation("ParentComment")
 }
 
@@ -86,10 +86,10 @@ model Rate {
   id        Int      @id @default(autoincrement())
   value     Int      @db.TinyInt
   createdAt DateTime @default(now())
-  place     Place?   @relation(fields: [placeId], references: [id])
-  placeId   Int?     @unique
+  place     Place    @relation(fields: [placeId], references: [id])
+  placeId   Int
   user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
+  userId    Int
 }
 
 model Rank {
@@ -105,28 +105,28 @@ model Report {
   isTreated Boolean
   createdAt DateTime @default(now())
   place     Place    @relation(fields: [placeId], references: [id])
-  placeId   Int      @unique
+  placeId   Int
   user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
+  userId    Int
 }
 
 model Truck {
   id                    Int      @id @default(autoincrement())
   name                  String   @db.VarChar(50)
-  lenght                Float    @db.Float
+  length                Float    @db.Float
   width                 Float    @db.Float
   height                Float    @db.Float
   weight                Float    @db.Float
   hasDangerousSubstance Boolean
   createdAt             DateTime @default(now())
   user                  User     @relation(fields: [userId], references: [id])
-  userId                Int      @unique
+  userId                Int
 }
 
 model LiveInfo {
   id           Int      @id @default(autoincrement())
   dateLiveInfo DateTime @db.DateTime()
-  number       Int
+  content      String   @db.Text
 }
 
 model LiveInfoType {
@@ -142,27 +142,29 @@ model Category {
 }
 
 model CategoriesPlaces {
+  id         Int      @id @default(autoincrement())
   category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int      @unique
+  categoryId Int
   place      Place    @relation(fields: [placeId], references: [id])
-  placeId    Int      @unique
+  placeId    Int
 }
 
 model FavoriteDestination {
-  id         Int      @id @default(autoincrement())
-  latitude   Float    @db.Float
-  longitutde Float    @db.Float
-  zipCode    String   @db.VarChar(20)
-  address    String   @db.VarChar(300)
-  city       String   @db.VarChar(100)
-  createdAt  DateTime @default(now())
-  user       User     @relation(fields: [userId], references: [id])
-  userId     Int      @unique
+  id        Int      @id @default(autoincrement())
+  latitude  Float    @db.Float
+  longitude Float    @db.Float
+  zipCode   String   @db.VarChar(20)
+  address   String   @db.VarChar(300)
+  city      String   @db.VarChar(100)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
 }
 
 model FavoritePlaceUser {
+  id      Int   @id @default(autoincrement())
   user    User  @relation(fields: [userId], references: [id])
-  userId  Int   @unique
+  userId  Int
   place   Place @relation(fields: [placeId], references: [id])
-  placeId Int   @unique
+  placeId Int
 }
