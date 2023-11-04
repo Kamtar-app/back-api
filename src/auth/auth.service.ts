@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { SignupDto } from './dto/signupDto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { SigninDto } from './dto/signinDto';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
@@ -42,6 +42,7 @@ export class AuthService {
         email,
         password: hash,
         isVisibleOnMap: signupDto?.isVisibleOnMap,
+        roleId: signupDto.roleId,
       },
     });
 
@@ -59,7 +60,7 @@ export class AuthService {
     if (!match) throw new UnauthorizedException('something does not match');
 
     const payload = {
-      sub: user.userId,
+      sub: user.id,
       email: user.email,
     };
     const token = this.Jwtservice.sign(payload, {

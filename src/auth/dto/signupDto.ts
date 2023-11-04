@@ -34,4 +34,7 @@ export class SignupDto {
   @ApiProperty()
   @IsOptional()
   readonly isVisibleOnMap: boolean;
+
+  @ApiProperty()
+  readonly roleId: number;
 }

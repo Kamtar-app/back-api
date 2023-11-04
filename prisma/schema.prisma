@@ -11,15 +11,160 @@ datasource db {
 }
 
 model User {
-  userId         Int      @id @default(autoincrement())
-  firstname      String   @db.VarChar(50)
-  lastname       String   @db.VarChar(50)
-  companyName    String?  @db.VarChar(255)
-  siret          String?  @db.VarChar(20)
-  phoneNumber    String   @db.VarChar(25)
-  email          String   @unique @db.VarChar(300)
-  password       String   @db.VarChar(255)
-  isVisibleOnMap Boolean?
-  createAt       DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id                   Int                   @id @default(autoincrement())
+  firstname            String                @db.VarChar(50)
+  lastname             String                @db.VarChar(50)
+  companyName          String?               @db.VarChar(255)
+  siret                String?               @db.VarChar(20)
+  phoneNumber          String                @db.VarChar(25)
+  email                String                @unique @db.VarChar(300)
+  password             String                @db.VarChar(255)
+  isVisibleOnMap       Boolean?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  role                 Role                  @relation(fields: [roleId], references: [id])
+  roleId               Int
+  places               Place[]
+  comments             Comment[]
+  rates                Rate[]
+  Reports              Report[]
+  Trucks               Truck[]
+  FavoriteDestinations FavoriteDestination[]
+  FavoritePlaceUsers   FavoritePlaceUser[]
+}
+
+model UserFriends {
+  id         Int     @id @default(autoincrement())
+  isAccepted Boolean
+}
+
+model Role {
+  id       Int    @id @default(autoincrement())
+  roleName String @db.VarChar(50)
+  users    User[]
+}
+
+model Place {
+  id                 Int                 @id @default(autoincrement())
+  name               String              @db.VarChar(50)
+  description        String              @db.Text
+  phoneNumber        String              @db.VarChar(25)
+  email              String              @unique @db.VarChar(300)
+  latitude           Float               @db.Float
+  longitude          Float               @db.Float
+  zipCode            String              @db.VarChar(20)
+  address            String              @db.VarChar(300)
+  city               String              @db.VarChar(100)
+  isCertificated     Boolean
+  isValidated        Boolean
+  openHours          String              @db.Text
+  averageRates       Float               @db.Float
+  createdAt          DateTime            @default(now())
+  user               User                @relation(fields: [userId], references: [id])
+  userId             Int
+  comments           Comment[]
+  rates              Rate[]
+  reports            Report[]
+  categoryPlaces     CategoriesPlaces[]
+  favoritePlacesUser FavoritePlaceUser[]
+}
+
+model Comment {
+  id              Int       @id @default(autoincrement())
+  content         String    @db.Text
+  createdAt       DateTime  @default(now())
+  user            User      @relation(fields: [userId], references: [id])
+  userId          Int
+  place           Place     @relation(fields: [placeId], references: [id])
+  placeId         Int
+  parentCommentId Int?
+  parentComment   Comment?  @relation("ParentComment", fields: [parentCommentId], references: [id])
+  responses       Comment[] @relation("ParentComment")
+}
+
+model Rate {
+  id        Int      @id @default(autoincrement())
+  value     Int      @db.TinyInt
+  createdAt DateTime @default(now())
+  place     Place    @relation(fields: [placeId], references: [id])
+  placeId   Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model Rank {
+  id         Int    @id @default(autoincrement())
+  name       String @db.VarChar(50)
+  iconPath   String @db.VarChar(300)
+  importance Int
+}
+
+model Report {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.Text
+  isTreated Boolean
+  createdAt DateTime @default(now())
+  place     Place    @relation(fields: [placeId], references: [id])
+  placeId   Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model Truck {
+  id                    Int      @id @default(autoincrement())
+  name                  String   @db.VarChar(50)
+  length                Float    @db.Float
+  width                 Float    @db.Float
+  height                Float    @db.Float
+  weight                Float    @db.Float
+  hasDangerousSubstance Boolean
+  createdAt             DateTime @default(now())
+  user                  User     @relation(fields: [userId], references: [id])
+  userId                Int
+}
+
+model LiveInfo {
+  id           Int      @id @default(autoincrement())
+  dateLiveInfo DateTime @db.DateTime()
+  content      String   @db.Text
+}
+
+model LiveInfoType {
+  id    Int    @id @default(autoincrement())
+  label String @db.VarChar(100)
+}
+
+model Category {
+  id              Int                @id @default(autoincrement())
+  name            String             @db.VarChar(50)
+  createdAt       DateTime           @default(now())
+  categoriesPlace CategoriesPlaces[]
+}
+
+model CategoriesPlaces {
+  id         Int      @id @default(autoincrement())
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  place      Place    @relation(fields: [placeId], references: [id])
+  placeId    Int
+}
+
+model FavoriteDestination {
+  id        Int      @id @default(autoincrement())
+  latitude  Float    @db.Float
+  longitude Float    @db.Float
+  zipCode   String   @db.VarChar(20)
+  address   String   @db.VarChar(300)
+  city      String   @db.VarChar(100)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model FavoritePlaceUser {
+  id      Int   @id @default(autoincrement())
+  user    User  @relation(fields: [userId], references: [id])
+  userId  Int
+  place   Place @relation(fields: [placeId], references: [id])
+  placeId Int
 }
