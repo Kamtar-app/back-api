@@ -7,7 +7,7 @@ async function main() {
   await prisma.categoriesPlaces.deleteMany({}); // use with caution.
   await prisma.rate.deleteMany({}); // use with caution.
   await prisma.favoriteDestination.deleteMany({}); // use with caution.
-  await prisma.comment.deleteMany({}); // use with caution.
+  // await prisma.comment.deleteMany({}); // use with caution.
   await prisma.report.deleteMany({}); // use with caution.
   await prisma.favoritePlaceUser.deleteMany({}); // use with caution.
   await prisma.truck.deleteMany({}); // use with caution.
@@ -35,7 +35,7 @@ async function main() {
   const trucks = [];
   const favoritesPlaceUser = [];
   const reports = [];
-  const comments = [];
+  // const comments = [];
   const rates = [];
   const favoriteDestinations = [];
   const categoriesPlaces = [];
@@ -57,6 +57,7 @@ async function main() {
     const user = {
       firstname: faker.person.firstName(),
       lastname: faker.person.lastName(),
+      imageUrl: faker.image.urlLoremFlickr({ category: 'profil' }),
       companyName: faker.company.name(),
       siret: faker.number.hex(),
       phoneNumber: faker.phone.number('+33 # ## ## ## ##'),
@@ -133,7 +134,8 @@ async function main() {
       isCertificated: faker.datatype.boolean(),
       isValidated: faker.datatype.boolean(),
       openHours: faker.word.noun(),
-      averageRates: faker.number.float({ min: 1, max: 5, precision: 0.01 }),
+      // averageRates: faker.number.float({ min: 1, max: 5, precision: 0.01 }),
+      imageUrl: faker.image.urlLoremFlickr({ category: 'restaurant' }),
       createdAt: faker.date.past(),
       userId: usersId[z],
     };
@@ -172,19 +174,24 @@ async function main() {
       placeId: placesId[a],
     };
 
-    const comment = {
-      content: faker.lorem.paragraph(),
-      createdAt: faker.date.past(),
-      userId: usersId[a],
-      placeId: placesId[a],
-    };
+    // const comment = {
+    //   content: faker.lorem.paragraph(),
+    //   createdAt: faker.date.past(),
+    //   userId: usersId[a],
+    //   placeId: placesId[a],
+    // };
 
-    const rate = {
-      value: faker.number.int({ min: 1, max: 5 }),
-      createdAt: faker.date.past(),
-      userId: usersId[a],
-      placeId: placesId[a],
-    };
+    const numberOfRates = faker.number.int({ min: 1, max: 5 });
+    for (let n = 0; n < numberOfRates; n++) {
+      const rate = {
+        value: faker.number.int({ min: 1, max: 5 }),
+        content: faker.lorem.paragraph(),
+        createdAt: faker.date.past(),
+        userId: usersId[a],
+        placeId: placesId[a],
+      };
+      rates.push(rate);
+    }
 
     const favoriteDestination = {
       latitude: faker.number.float({ min: -90, max: 90 }),
@@ -203,8 +210,7 @@ async function main() {
 
     favoritesPlaceUser.push(favoritePlaceUser);
     reports.push(report);
-    comments.push(comment);
-    rates.push(rate);
+    // comments.push(comment);
     favoriteDestinations.push(favoriteDestination);
     categoriesPlaces.push(categoryPlace);
   }
@@ -217,9 +223,9 @@ async function main() {
     data: reports,
   });
 
-  const commentsSaved = await prisma.comment.createMany({
-    data: comments,
-  });
+  // const commentsSaved = await prisma.comment.createMany({
+  //   data: comments,
+  // });
 
   const ratesSaved = await prisma.rate.createMany({
     data: rates,

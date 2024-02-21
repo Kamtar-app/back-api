@@ -1,0 +1,78 @@
+[
+    {
+      "name": "Le Relais de la Pomme",
+      "description": "Restaurant traditionnel français",
+      "phoneNumber": "02 99 99 99 99",
+      "email": "contact@lerelaisdelapomme.com",
+      "latitude": 47.9979,
+      "longitude": -1.5471,
+      "zipCode": "44300",
+      "address": "Route de Nantes",
+      "city": "Rennes",
+      "isCertificated": true,
+      "isValidated": true,
+      "openHours": "09:00 - 22:00",
+      "imageUrl": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Supermarché Le Panier",
+      "description": "Supermarché avec large gamme de produits",
+      "phoneNumber": "02 98 98 98 98",
+      "email": "contact@lepanier.com",
+      "latitude": 47.8795,
+      "longitude": -1.9295,
+      "zipCode": "44300",
+      "address": "Rue des Acacias",
+      "city": "Loroux-Bottereau",
+      "isCertificated": true,
+      "isValidated": true,
+      "openHours": "08:00 - 20:00",
+      "imageUrl": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Aire de repos La Croisée",
+      "description": "Aire de repos avec station-service",
+      "phoneNumber": "02 97 97 97 97",
+      "email": "contact@la-croisee.com",
+      "latitude": 47.4405,
+      "longitude": -1.9416,
+      "zipCode": "44300",
+      "address": "A11",
+      "city": "Carquefou",
+      "isCertificated": true,
+      "isValidated": true,
+      "openHours": "24/7",
+      "imageUrl": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Station Essence Total",
+      "description": "Station essence avec boutique et services",
+      "phoneNumber": "02 96 96 96 96",
+      "email": "contact@total.fr",
+      "latitude": 47.2527,
+      "longitude": -1.5546,
+      "zipCode": "44000",
+      "address": "Avenue des Trois Croix",
+      "city": "Nantes",
+      "isCertificated": true,
+      "isValidated": true,
+      "openHours": "24/7",
+      "imageUrl": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Station Essence Shell",
+      "description": "Station essence avec boutique et services",
+      "phoneNumber": "02 95 95 95 95",
+      "email": "contact@shell.fr",
+      "latitude": 47.2241,
+      "longitude": -1.5424,
+      "zipCode": "44000",
+      "address": "Route de Paris",
+      "city": "Nantes",
+      "isCertificated": true,
+      "isValidated": true,
+      "openHours": "06:00 - 23:00",
+      "imageUrl": "https://via.placeholder.com/150"
+    }
+  ]
+  

@@ -13,6 +13,7 @@
 #### Insallation des conteneurs
 
 Build de l'image et lancement des conteneurs
+
 ```bash
 docker-compose up --build -d
 ```
@@ -28,16 +29,19 @@ docker exec kamtar-app ...
 ### Installation classique
 
 Installation des dépendances du projet
+
 ```bash
 npm install
 ```
 
-Ajout des migrations sur la base de donnée
+Mettre à jour la base de données
+
 ```bash
 npx prisma db push
 ```
 
 Génération des données fictives dans la bdd
+
 ```bash
 npx prisma db seed
 ```
@@ -45,21 +49,25 @@ npx prisma db seed
 ### Commandes Prisma
 
 Visualiser la bdd et les données
+
 ```bash
 npx prisma studio
 ```
 
 Ajouter la migration à la bdd : modifier la bdd en ajoutant / supprimant des colonnes, tables ...
+
 ```bash
 npx prisma db push
 ```
 
 Lancer les migrations
+
 ```bash
 npx prisma migrate dev
 ```
 
 Générer et ajouter les données de tests dans la BDD
+
 ```bash
 npx prisma db seed
 ```
@@ -67,16 +75,19 @@ npx prisma db seed
 ### Commandes Nest
 
 Créer un nouveau module
+
 ```bash
 nest g mo {moduleName} --no-spec
 ```
 
 Créer un nouveau controller
+
 ```bash
 nest g co {controllerName} --no-spec
 ```
 
 Créer un nouveau service
+
 ```bash
 nest g s {serviceName} --no-spec
 ```

@@ -1,5 +1,5 @@
 import { Controller, Post } from '@nestjs/common';
-import { Body, Req } from '@nestjs/common/decorators';
+import { Body, Get, Param, Req } from '@nestjs/common/decorators';
 import { SignupDto } from './dto/signupDto';
 import { AuthService } from './auth.service';
 import { SigninDto } from './dto/signinDto';

@@ -11,6 +11,10 @@ export class SignupDto {
   readonly lastname: string;
 
   @ApiProperty()
+  @IsNotEmpty()
+  readonly imageUrl: string;
+
+  @ApiProperty()
   @IsOptional()
   readonly companyName: string;
 
