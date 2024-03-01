@@ -20,7 +20,15 @@ export class CoordinateParameterDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsLongitude()
+  @IsNumber()
+  readonly maxDistance: number;
+}
+
+export class CoordinateListParameterDto {
+  readonly coordinateList: CoordinateDto[];
+
+  @ApiProperty()
+  @IsNotEmpty()
   @IsNumber()
   readonly maxDistance: number;
 }

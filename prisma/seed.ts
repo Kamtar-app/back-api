@@ -4,21 +4,37 @@ import { faker } from '@faker-js/faker';
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.categoriesPlaces.deleteMany({}); // use with caution.
-  await prisma.rate.deleteMany({}); // use with caution.
-  await prisma.favoriteDestination.deleteMany({}); // use with caution.
-  await prisma.comment.deleteMany({}); // use with caution.
-  await prisma.report.deleteMany({}); // use with caution.
-  await prisma.favoritePlaceUser.deleteMany({}); // use with caution.
-  await prisma.truck.deleteMany({}); // use with caution.
-  await prisma.place.deleteMany({}); // use with caution.
-  await prisma.user.deleteMany({}); // use with caution.
-  await prisma.userFriends.deleteMany({}); // use with caution.
-  await prisma.role.deleteMany({}); // use with caution.
-  await prisma.rank.deleteMany({}); // use with caution.
-  await prisma.liveInfo.deleteMany({}); // use with caution.
-  await prisma.liveInfoType.deleteMany({}); // use with caution.
-  await prisma.category.deleteMany({}); // use with caution.
+  await prisma.categoriesPlaces.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE CategoriesPlaces AUTO_INCREMENT = 1;`;
+  await prisma.rate.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE Rate AUTO_INCREMENT = 1;`;
+  await prisma.favoriteDestination.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE FavoriteDestination AUTO_INCREMENT = 1;`;
+  await prisma.comment.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE Comment AUTO_INCREMENT = 1;`;
+  await prisma.report.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE Report AUTO_INCREMENT = 1;`;
+  await prisma.favoritePlaceUser.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE FavoritePlaceUser AUTO_INCREMENT = 1;`;
+  await prisma.truck.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE Truck AUTO_INCREMENT = 1;`;
+  await prisma.place.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE Place AUTO_INCREMENT = 1;`;
+  await prisma.user.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE User AUTO_INCREMENT = 1;`;
+  await prisma.userFriends.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE UserFriends AUTO_INCREMENT = 1;`;
+  await prisma.role.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE Role AUTO_INCREMENT = 1;`;
+  await prisma.rank.deleteMany({}); 
+  // await prisma.$executeRaw`ALTER TABLE Rank AUTO_INCREMENT = 1;`;
+  
+  await prisma.liveInfo.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE LiveInfo AUTO_INCREMENT = 1;`;
+  await prisma.liveInfoType.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE LiveInfoType AUTO_INCREMENT = 1;`;
+  await prisma.category.deleteMany({}); 
+  await prisma.$executeRaw`ALTER TABLE Category AUTO_INCREMENT = 1;`;
 
   const amountOfUsers = 5;
 
@@ -119,14 +135,22 @@ async function main() {
     data: liveInfoTypes,
   });
 
+  const placeInRoad = [
+    { latitude: 47.706827, longitude: -1.759981 },
+    { latitude: 47.939227, longitude: -1.639513 },
+    { latitude: 47.993966, longitude: -1.672214 },
+    { latitude: 47.762892, longitude: -1.669468 },
+    { latitude: 47.421918, longitude: -1.706330 },
+  ];
+
   for (let z = 0; z < amountOfUsers; z++) {
     const place = {
       name: faker.company.name(),
       description: faker.lorem.paragraph(),
       phoneNumber: faker.phone.number(),
       email: faker.internet.email(),
-      latitude: faker.number.float({ min: -90, max: 90 }),
-      longitude: faker.number.float({ min: -180, max: 180 }),
+      latitude: placeInRoad[z].latitude,
+      longitude: placeInRoad[z].longitude,
       zipCode: faker.location.zipCode(),
       address: faker.location.streetAddress(),
       city: faker.location.city(),
