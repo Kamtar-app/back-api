@@ -8,7 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { CoordinateDto, CoordinateParameterDto } from './dto/coordinateDto';
+import { CoordinateDto, CoordinateListParameterDto, CoordinateParameterDto } from './dto/coordinateDto';
 
 @Injectable()
 export class PlaceService {
@@ -36,7 +36,7 @@ export class PlaceService {
 
     return {
       places:
-        this.findPlacesInSquare(
+        await this.findPlacesInSquare(
           rigthBottomPoint.latitude,
           leftTopPoint.latitude,
           leftTopPoint.longitude,
@@ -52,23 +52,21 @@ export class PlaceService {
    * @returns 
    */
   async placeAroundManyCoordinates(
-    // coordinatesList: CoordinateDto[]
+    coordinateListParameterDto: CoordinateListParameterDto
   ) {
 
-    const coordinatesList = [
-      { latitude: 37.7749, longitude: -122.4194 },
-      { latitude: 37.785, longitude: -122.405 },
-    ];
+    const { coordinateList, maxDistance } = coordinateListParameterDto;
 
-    const filteredCoordinates = this.filterCoordinatesByDistance(coordinatesList, this.MIN_DISTANCE_PLACE);
+    const filteredCoordinates = this.filterCoordinatesByDistance(coordinateList, maxDistance);
 
-    console.log("Coordonnées d'origine :", coordinatesList);
+    console.log("Coordonnées d'origine :", coordinateList);
     console.log("Coordonnées filtrées :", filteredCoordinates);
 
     let placeList = [];
-    filteredCoordinates.forEach(async coordinates => {
-      const leftTopPoint = this.getShiftedPointByDistance(coordinates, +this.MIN_DISTANCE_PLACE, -this.MIN_DISTANCE_PLACE);
-      const rigthBottomPoint = this.getShiftedPointByDistance(coordinates, -this.MIN_DISTANCE_PLACE, +this.MIN_DISTANCE_PLACE);
+
+    for (const coordinates of filteredCoordinates) {
+      const leftTopPoint = this.getShiftedPointByDistance(coordinates, +maxDistance, -maxDistance);
+      const rigthBottomPoint = this.getShiftedPointByDistance(coordinates, -maxDistance, +maxDistance);
 
       const currentPlaceList = await this.findPlacesInSquare(
         rigthBottomPoint.latitude,
@@ -76,8 +74,15 @@ export class PlaceService {
         leftTopPoint.longitude,
         rigthBottomPoint.longitude
       )
-      placeList = [...placeList, ...currentPlaceList];
-    });
+
+      // Filtrer les places déjà présentes dans placeList
+      const newPlaces = currentPlaceList.filter(place =>
+        !placeList.some(existingPlace => existingPlace.id === place.id)
+      );
+
+      placeList = [...placeList, ...newPlaces];
+
+    }
 
     return { places: placeList };
   }
@@ -101,6 +106,13 @@ export class PlaceService {
         longitude: {
           gte: longitudeMin,
           lte: longitudeMax,
+        },
+      },
+      include: {
+        categoryPlaces: {
+          include: {
+            category: true, // Include the actual Category information
+          },
         },
       },
     });
