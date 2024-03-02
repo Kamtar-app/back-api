@@ -7,7 +7,11 @@ import {
 import { Body, Get, Param, Query, Req } from '@nestjs/common/decorators';
 import { PlaceService } from './place.service';
 import { ApiTags } from '@nestjs/swagger';
-import { CoordinateDto, CoordinateParameterDto } from './dto/coordinateDto';
+import {
+  CoordinateDto,
+  CoordinateListParameterDto,
+  CoordinateParameterDto,
+} from './dto/coordinateDto';
 
 @ApiTags('place')
 @Controller('place')
@@ -37,9 +41,12 @@ export class PlaceController {
     // - Les infos sur l'utilisateur connecté
   }
 
-  @Get('place-around-many-coordinates')
-  placeAroundManyCoordinates() {
-    // @Body() coordinateDto: CoordinateDto
-    return this.placeService.placeAroundManyCoordinates();
+  @Post('place-around-many-coordinates')
+  placeAroundManyCoordinates(@Body() coordinateListParameterDto) {
+    console.log(coordinateListParameterDto);
+
+    return this.placeService.placeAroundManyCoordinates(
+      coordinateListParameterDto,
+    );
   }
 }
