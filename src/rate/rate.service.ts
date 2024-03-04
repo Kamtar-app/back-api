@@ -8,6 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { CreateCommentDto } from './dto/commentDto';
 
 @Injectable()
 export class RateService {
@@ -26,6 +27,9 @@ export class RateService {
   async getRatesByPlaceId(id: number) {
     return this.prismaService.rate.findMany({
       where: { placeId: id },
+      include: {
+        user: true,
+      },
     });
   }
 
@@ -34,5 +38,18 @@ export class RateService {
       where: { placeId: id },
     });
     console.log(rates);
+  }
+
+  async createComment(data: CreateCommentDto) {
+    const { content, userId, placeId, value } = data;
+
+    return this.prismaService.rate.create({
+      data: {
+        content,
+        userId,
+        placeId,
+        value,
+      },
+    });
   }
 }

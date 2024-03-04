@@ -10,7 +10,7 @@ async function main() {
   await prisma.$executeRaw`ALTER TABLE Rate AUTO_INCREMENT = 1;`;
   await prisma.favoriteDestination.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE FavoriteDestination AUTO_INCREMENT = 1;`;
-  await prisma.comment.deleteMany({});
+  // await prisma.comment.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE Comment AUTO_INCREMENT = 1;`;
   await prisma.report.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE Report AUTO_INCREMENT = 1;`;
