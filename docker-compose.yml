@@ -6,10 +6,10 @@ services:
     restart: always
     container_name: kamtar-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: kamtar
-      MYSQL_USER: kamtar
-      MYSQL_PASSWORD: kamtar
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=kamtar
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
     ports:
       - 3306:3306
     volumes:
