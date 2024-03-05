@@ -1,5 +1,6 @@
 import { PrismaClient, Role, User } from '@prisma/client';
 import { faker } from '@faker-js/faker';
+var fakeDatas = require('./../fake-datas.json');
 
 const prisma = new PrismaClient();
 
@@ -10,65 +11,41 @@ async function main() {
   await prisma.$executeRaw`ALTER TABLE Rate AUTO_INCREMENT = 1;`;
   await prisma.favoriteDestination.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE FavoriteDestination AUTO_INCREMENT = 1;`;
-  // await prisma.comment.deleteMany({});
-  await prisma.$executeRaw`ALTER TABLE Comment AUTO_INCREMENT = 1;`;
   await prisma.report.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE Report AUTO_INCREMENT = 1;`;
   await prisma.favoritePlaceUser.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE FavoritePlaceUser AUTO_INCREMENT = 1;`;
   await prisma.truck.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE Truck AUTO_INCREMENT = 1;`;
-  await prisma.place.deleteMany({});
-  await prisma.$executeRaw`ALTER TABLE Place AUTO_INCREMENT = 1;`;
-  await prisma.user.deleteMany({});
-  await prisma.$executeRaw`ALTER TABLE User AUTO_INCREMENT = 1;`;
   await prisma.userFriends.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE UserFriends AUTO_INCREMENT = 1;`;
-  await prisma.role.deleteMany({});
-  await prisma.$executeRaw`ALTER TABLE Role AUTO_INCREMENT = 1;`;
   await prisma.rank.deleteMany({});
   // await prisma.$executeRaw`ALTER TABLE Rank AUTO_INCREMENT = 1;`;
-
   await prisma.liveInfo.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE LiveInfo AUTO_INCREMENT = 1;`;
   await prisma.liveInfoType.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE LiveInfoType AUTO_INCREMENT = 1;`;
   await prisma.category.deleteMany({});
-  await prisma.$executeRaw`ALTER TABLE Category AUTO_INCREMENT = 1;`;
-
-  const amountOfUsers = 5;
-
-  const users = [];
+  await prisma.$executeRaw`ALTER TABLE Category AUTO_INCREMENT = 1;`;  
+  await prisma.user.deleteMany({});
+  await prisma.$executeRaw`ALTER TABLE User AUTO_INCREMENT = 1;`;
+  await prisma.role.deleteMany({});
+  await prisma.$executeRaw`ALTER TABLE Role AUTO_INCREMENT = 1;`;
+  await prisma.place.deleteMany({});
+  await prisma.$executeRaw`ALTER TABLE Place AUTO_INCREMENT = 1;`;
+  
+  // roles
   const rolesId = [];
-  const placesId = [];
-  const usersId = [];
-  const categoriesId = [];
-  const ranks = [];
-  const categories = [];
-  const liveInfos = [];
-  const liveInfoTypes = [];
-  const userFriends = [];
-  const trucks = [];
-  const favoritesPlaceUser = [];
-  const reports = [];
-  // const comments = [];
-  const rates = [];
-  const favoriteDestinations = [];
-  const categoriesPlaces = [];
-
-  const roles = [
-    { roleName: 'Administrateur' },
-    { roleName: 'Contributeur' },
-    { roleName: 'Utilisateur' },
-  ];
-
-  for (let i = 0; i < roles.length; i++) {
-    const createdRole = await prisma.role.create({ data: roles[i] });
+  for (let i = 0; i < fakeDatas.roles.length; i++) {
+    const createdRole = await prisma.role.create({ data: fakeDatas.roles[i] });
     rolesId.push(createdRole.id);
   }
-
-  for (let x = 0; x < amountOfUsers; x++) {
-    let chooseRandomRole = Math.floor(Math.random() * roles.length);
+  
+  // users
+  const usersCount = 5;
+  const usersId = [];
+  for (let i = 0; i < usersCount; i++) {
+    let randomRoleId = Math.floor(Math.random() * fakeDatas.roles.length);
 
     const user = {
       firstname: faker.person.firstName(),
@@ -82,31 +59,41 @@ async function main() {
       isVisibleOnMap: faker.datatype.boolean(),
       createdAt: faker.date.past(),
       updatedAt: faker.date.recent(),
-      roleId: rolesId[chooseRandomRole],
+      roleId: rolesId[randomRoleId],
     };
 
     const createdUser = await prisma.user.create({ data: user });
     usersId.push(createdUser.id);
   }
 
-  for (let j = 0; j < amountOfUsers; j++) {
+  // categories
+  const categoriesId = [];
+  for (let i = 0; i < fakeDatas.categories.length; i++) {
+    const createdCategory = await prisma.category.create({
+      data: {
+        ...fakeDatas.categories[i],
+        createdAt: faker.date.past()
+      }
+    });
+    categoriesId.push(createdCategory.id);
+  }
+
+  // ranks
+  const ranksId = [];
+  for (let x = 0; x < fakeDatas.ranks.length; x++) {
+    const createdRank = await prisma.rank.create({ data: fakeDatas.ranks[x] });
+    ranksId.push(createdRank.id);
+  }
+
+  // userFriends && liveInfo && liveInfoType 
+  const loopCount = 5;
+  const liveInfos = [];
+  const liveInfoTypes = [];
+  const userFriends = [];
+  for (let j = 0; j < loopCount; j++) {
     const userFriend = {
       isAccepted: faker.datatype.boolean(),
     };
-
-    const rank = {
-      name: faker.word.noun(),
-      iconPath: faker.image.url(),
-      importance: faker.number.int({ min: 1, max: 10 }),
-    };
-
-    const category = {
-      name: faker.word.noun(),
-      createdAt: faker.date.past(),
-    };
-
-    const categorySaved = await prisma.category.create({ data: category });
-    categoriesId.push(categorySaved.id);
 
     const liveInfo = {
       dateLiveInfo: faker.date.past(),
@@ -118,55 +105,19 @@ async function main() {
     };
 
     userFriends.push(userFriend);
-    ranks.push(rank);
     liveInfos.push(liveInfo);
     liveInfoTypes.push(liveInfoType);
   }
 
-  const usersSaved = await prisma.user.createMany({ data: users });
-  const usersFriendSaved = await prisma.userFriends.createMany({
-    data: userFriends,
-  });
-  const ranksSaved = await prisma.rank.createMany({ data: ranks });
+  const usersFriendSaved = await prisma.userFriends.createMany({ data: userFriends });
+  const liveInfosSaved = await prisma.liveInfo.createMany({ data: liveInfos });
+  const liveInfoTypesSaved = await prisma.liveInfoType.createMany({ data: liveInfoTypes });
 
-  const liveInfosSaved = await prisma.liveInfo.createMany({
-    data: liveInfos,
-  });
-  const liveInfoTypesSaved = await prisma.liveInfoType.createMany({
-    data: liveInfoTypes,
-  });
-
-  const placeInRoad = [
-    { latitude: 47.706827, longitude: -1.759981 },
-    { latitude: 47.939227, longitude: -1.639513 },
-    { latitude: 47.993966, longitude: -1.672214 },
-    { latitude: 47.762892, longitude: -1.669468 },
-    { latitude: 47.421918, longitude: -1.70633 },
-  ];
-
-  for (let z = 0; z < amountOfUsers; z++) {
-    const place = {
-      name: faker.company.name(),
-      description: faker.lorem.paragraph(),
-      phoneNumber: faker.phone.number(),
-      email: faker.internet.email(),
-      latitude: placeInRoad[z].latitude,
-      longitude: placeInRoad[z].longitude,
-      zipCode: faker.location.zipCode(),
-      address: faker.location.streetAddress(),
-      city: faker.location.city(),
-      isCertificated: faker.datatype.boolean(),
-      isValidated: faker.datatype.boolean(),
-      openHours: faker.word.noun(),
-      // averageRates: faker.number.float({ min: 1, max: 5, precision: 0.01 }),
-      imageUrl: faker.image.urlLoremFlickr({ category: 'restaurant' }),
-      createdAt: faker.date.past(),
-      userId: usersId[z],
-    };
-
-    const createdPlace = await prisma.place.create({ data: place });
-    placesId.push(createdPlace.id);
-
+  // trucks
+  const trucks = [];
+  const trucksCount = 5;
+  for (let x = 0; x < trucksCount; x++) {
+    let randomUserId = Math.floor(Math.random() * usersId.length);
     const truck = {
       name: faker.vehicle.vehicle(),
       length: faker.number.float({ min: 5, max: 15, precision: 0.01 }),
@@ -175,95 +126,91 @@ async function main() {
       weight: faker.number.float({ min: 1000, max: 5000, precision: 0.01 }),
       hasDangerousSubstance: faker.datatype.boolean(),
       createdAt: faker.date.past(),
-      userId: usersId[z],
+      userId: usersId[randomUserId],
     };
 
     trucks.push(truck);
   }
 
-  const trucksSaved = await prisma.truck.createMany({
-    data: trucks,
-  });
+  const trucksSaved = await prisma.truck.createMany({ data: trucks });
 
-  for (let a = 0; a < amountOfUsers; a++) {
+
+  // places
+  const placesId = [];
+  for (let x = 0; x < fakeDatas.places.length; x++) {
+    let randomUserId = Math.floor(Math.random() * usersId.length);
+    const place = {
+      ...fakeDatas.places[x],
+      imageUrl: faker.image.urlLoremFlickr({ category: 'restaurant' }),
+      createdAt: faker.date.past(),
+      userId: usersId[randomUserId],
+    };
+
+    const createdPlace = await prisma.place.create({ data: place });
+    placesId.push(createdPlace.id);
+  }
+
+  // favoritePlaceUser && report && numberOfRates && rates && favoriteDestination && categoryPlace
+  const rates = [];
+  const favoritesPlaceUser = [];
+  const reports = [];
+  const favoriteDestinations = [];
+  const categoriesPlaces = [];
+
+  for (let a = 0; a < usersCount; a++) {
+    let randomUserId = Math.floor(Math.random() * usersId.length);
+    let randomPlaceId = Math.floor(Math.random() * placesId.length);
+    let randomCategoryId = Math.floor(Math.random() * categoriesId.length);
+
     const favoritePlaceUser = {
-      userId: usersId[a],
-      placeId: placesId[a],
+      userId: usersId[randomUserId],
+      placeId: placesId[randomPlaceId],
     };
 
     const report = {
       content: faker.lorem.paragraph(),
       isTreated: faker.datatype.boolean(),
-      userId: usersId[a],
-      placeId: placesId[a],
+      userId: usersId[randomUserId],
+      placeId: placesId[randomPlaceId],
     };
-
-    // const comment = {
-    //   content: faker.lorem.paragraph(),
-    //   createdAt: faker.date.past(),
-    //   userId: usersId[a],
-    //   placeId: placesId[a],
-    // };
 
     const numberOfRates = faker.number.int({ min: 1, max: 5 });
     for (let n = 0; n < numberOfRates; n++) {
+    let randomRateCommentId = Math.floor(Math.random() * fakeDatas.categories.length);
+
       const rate = {
         value: faker.number.int({ min: 1, max: 5 }),
-        content: faker.lorem.paragraph(),
+        content: fakeDatas.rateContent[randomRateCommentId].content,
         createdAt: faker.date.past(),
-        userId: usersId[a],
-        placeId: placesId[a],
+        userId: usersId[randomUserId],
+        placeId: placesId[randomPlaceId],
       };
       rates.push(rate);
     }
 
+    let randomFavoriteDestinationId = Math.floor(Math.random() * fakeDatas.destinations.length);
     const favoriteDestination = {
-      latitude: faker.number.float({ min: -90, max: 90 }),
-      longitude: faker.number.float({ min: -180, max: 180 }),
-      zipCode: faker.location.zipCode(),
-      address: faker.location.streetAddress(),
-      city: faker.location.city(),
+      ...fakeDatas.destinations[randomFavoriteDestinationId],
       createdAt: faker.date.past(),
-      userId: usersId[a],
+      userId: usersId[randomUserId],
     };
 
     const categoryPlace = {
-      placeId: placesId[a],
-      categoryId: categoriesId[a],
+      placeId: placesId[randomPlaceId],
+      categoryId: categoriesId[randomCategoryId],
     };
 
     favoritesPlaceUser.push(favoritePlaceUser);
     reports.push(report);
-    // comments.push(comment);
     favoriteDestinations.push(favoriteDestination);
     categoriesPlaces.push(categoryPlace);
   }
 
-  const favoritesPlaceUserSaved = await prisma.favoritePlaceUser.createMany({
-    data: favoritesPlaceUser,
-  });
-
-  const reportsSaved = await prisma.report.createMany({
-    data: reports,
-  });
-
-  // const commentsSaved = await prisma.comment.createMany({
-  //   data: comments,
-  // });
-
-  const ratesSaved = await prisma.rate.createMany({
-    data: rates,
-  });
-
-  const favoriteDestinationsSaved = await prisma.favoriteDestination.createMany(
-    {
-      data: favoriteDestinations,
-    },
-  );
-
-  const categoriesPlacesSaved = await prisma.categoriesPlaces.createMany({
-    data: categoriesPlaces,
-  });
+  const favoritesPlaceUserSaved = await prisma.favoritePlaceUser.createMany({ data: favoritesPlaceUser });
+  const reportsSaved = await prisma.report.createMany({ data: reports });
+  const ratesSaved = await prisma.rate.createMany({ data: rates });
+  const favoriteDestinationsSaved = await prisma.favoriteDestination.createMany({ data: favoriteDestinations });
+  const categoriesPlacesSaved = await prisma.categoriesPlaces.createMany({ data: categoriesPlaces });
 }
 
 main()

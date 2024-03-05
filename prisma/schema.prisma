@@ -95,7 +95,7 @@ model Rate {
 model Rank {
   id         Int    @id @default(autoincrement())
   name       String @db.VarChar(50)
-  iconPath   String @db.VarChar(300)
+  iconPath   String @db.Text
   importance Int
 }
 

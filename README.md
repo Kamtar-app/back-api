@@ -72,6 +72,12 @@ Générer et ajouter les données de tests dans la BDD
 npx prisma db seed
 ```
 
+Lancement de l'application 
+
+```bash
+npm run start:dev
+```
+
 ### Commandes Nest
 
 Créer un nouveau module
