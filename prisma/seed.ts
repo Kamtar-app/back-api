@@ -70,7 +70,7 @@ async function main() {
       roleId: rolesId[randomRoleId],
       rankId: ranksId[randomRankId],
       latitude: fakeDatas.usersPositions[i].latitude,
-      longitude: fakeDatas.usersPositions[i].longitude
+      longitude: fakeDatas.usersPositions[i].longitude,
     };
 
     const createdUser = await prisma.user.create({ data: user });
@@ -83,13 +83,13 @@ async function main() {
     const createdCategory = await prisma.category.create({
       data: {
         ...fakeDatas.categories[i],
-        createdAt: faker.date.past()
-      }
+        createdAt: faker.date.past(),
+      },
     });
     categoriesId.push(createdCategory.id);
   }
 
-  // userFriends && liveInfo && liveInfoType 
+  // userFriends && liveInfo && liveInfoType
   const loopCount = 5;
   const liveInfos = [];
   const liveInfoTypes = [];
@@ -113,9 +113,13 @@ async function main() {
     liveInfoTypes.push(liveInfoType);
   }
 
-  const usersFriendSaved = await prisma.userFriends.createMany({ data: userFriends });
+  const usersFriendSaved = await prisma.userFriends.createMany({
+    data: userFriends,
+  });
   const liveInfosSaved = await prisma.liveInfo.createMany({ data: liveInfos });
-  const liveInfoTypesSaved = await prisma.liveInfoType.createMany({ data: liveInfoTypes });
+  const liveInfoTypesSaved = await prisma.liveInfoType.createMany({
+    data: liveInfoTypes,
+  });
 
   // trucks
   const trucks = [];
@@ -137,7 +141,6 @@ async function main() {
   }
 
   const trucksSaved = await prisma.truck.createMany({ data: trucks });
-
 
   // places
   const placesId = [];
@@ -178,21 +181,25 @@ async function main() {
       placeId: placesId[randomPlaceId],
     };
 
-    const numberOfRates = faker.number.int({ min: 1, max: 5 });
-    for (let n = 0; n < numberOfRates; n++) {
-      let randomRateCommentId = Math.floor(Math.random() * fakeDatas.categories.length);
+    // const numberOfRates = faker.number.int({ min: 1, max: 5 });
+    for (let n = 0; n < placesId.length; n++) {
+      let randomRateCommentId = Math.floor(
+        Math.random() * fakeDatas.categories.length,
+      );
 
       const rate = {
         value: faker.number.int({ min: 1, max: 5 }),
         content: fakeDatas.rateContent[randomRateCommentId].content,
         createdAt: faker.date.past(),
         userId: usersId[randomUserId],
-        placeId: placesId[randomPlaceId],
+        placeId: placesId[n],
       };
       rates.push(rate);
     }
 
-    let randomFavoriteDestinationId = Math.floor(Math.random() * fakeDatas.destinations.length);
+    let randomFavoriteDestinationId = Math.floor(
+      Math.random() * fakeDatas.destinations.length,
+    );
     const favoriteDestination = {
       ...fakeDatas.destinations[randomFavoriteDestinationId],
       createdAt: faker.date.past(),
@@ -215,11 +222,17 @@ async function main() {
     categoriesPlaces.push(categoryPlace);
   }
 
-  const favoritesPlaceUserSaved = await prisma.favoritePlaceUser.createMany({ data: favoritesPlaceUser });
+  const favoritesPlaceUserSaved = await prisma.favoritePlaceUser.createMany({
+    data: favoritesPlaceUser,
+  });
   const reportsSaved = await prisma.report.createMany({ data: reports });
   const ratesSaved = await prisma.rate.createMany({ data: rates });
-  const favoriteDestinationsSaved = await prisma.favoriteDestination.createMany({ data: favoriteDestinations });
-  const categoriesPlacesSaved = await prisma.categoriesPlaces.createMany({ data: categoriesPlaces });
+  const favoriteDestinationsSaved = await prisma.favoriteDestination.createMany(
+    { data: favoriteDestinations },
+  );
+  const categoriesPlacesSaved = await prisma.categoriesPlaces.createMany({
+    data: categoriesPlaces,
+  });
 }
 
 main()
