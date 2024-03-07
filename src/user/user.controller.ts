@@ -13,4 +13,11 @@ export class UserController {
     const user = this.userservice.getOneUser(+id);
     return user;
   }
+
+  @Get('limit/:limit')
+  placeAroundOneCoordinates(
+    @Param('limit', ParseIntPipe) limit: number
+  ) {
+    return this.userservice.getAllUserWithLimit(limit);
+  }
 }

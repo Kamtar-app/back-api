@@ -45,6 +45,7 @@ export class AuthService {
         password: hash,
         isVisibleOnMap: signupDto?.isVisibleOnMap,
         roleId: signupDto.roleId,
+        rankId: 1,
       },
     });
 

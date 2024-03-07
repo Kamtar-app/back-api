@@ -19,33 +19,41 @@ async function main() {
   await prisma.$executeRaw`ALTER TABLE Truck AUTO_INCREMENT = 1;`;
   await prisma.userFriends.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE UserFriends AUTO_INCREMENT = 1;`;
-  await prisma.rank.deleteMany({});
-  // await prisma.$executeRaw`ALTER TABLE Rank AUTO_INCREMENT = 1;`;
   await prisma.liveInfo.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE LiveInfo AUTO_INCREMENT = 1;`;
   await prisma.liveInfoType.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE LiveInfoType AUTO_INCREMENT = 1;`;
   await prisma.category.deleteMany({});
-  await prisma.$executeRaw`ALTER TABLE Category AUTO_INCREMENT = 1;`;  
+  await prisma.$executeRaw`ALTER TABLE Category AUTO_INCREMENT = 1;`;
+  await prisma.place.deleteMany({});
+  await prisma.$executeRaw`ALTER TABLE Place AUTO_INCREMENT = 1;`;
   await prisma.user.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE User AUTO_INCREMENT = 1;`;
   await prisma.role.deleteMany({});
   await prisma.$executeRaw`ALTER TABLE Role AUTO_INCREMENT = 1;`;
-  await prisma.place.deleteMany({});
-  await prisma.$executeRaw`ALTER TABLE Place AUTO_INCREMENT = 1;`;
-  
+  await prisma.rank.deleteMany({});
+  // await prisma.$executeRaw`ALTER TABLE Rank AUTO_INCREMENT = 1;`;
+
   // roles
   const rolesId = [];
   for (let i = 0; i < fakeDatas.roles.length; i++) {
     const createdRole = await prisma.role.create({ data: fakeDatas.roles[i] });
     rolesId.push(createdRole.id);
   }
-  
+
+  // ranks
+  const ranksId = [];
+  for (let x = 0; x < fakeDatas.ranks.length; x++) {
+    const createdRank = await prisma.rank.create({ data: fakeDatas.ranks[x] });
+    ranksId.push(createdRank.id);
+  }
+
   // users
   const usersCount = 5;
   const usersId = [];
   for (let i = 0; i < usersCount; i++) {
     let randomRoleId = Math.floor(Math.random() * fakeDatas.roles.length);
+    let randomRankId = Math.floor(Math.random() * fakeDatas.ranks.length);
 
     const user = {
       firstname: faker.person.firstName(),
@@ -60,6 +68,9 @@ async function main() {
       createdAt: faker.date.past(),
       updatedAt: faker.date.recent(),
       roleId: rolesId[randomRoleId],
+      rankId: ranksId[randomRankId],
+      latitude: fakeDatas.usersPositions[i].latitude,
+      longitude: fakeDatas.usersPositions[i].longitude
     };
 
     const createdUser = await prisma.user.create({ data: user });
@@ -76,13 +87,6 @@ async function main() {
       }
     });
     categoriesId.push(createdCategory.id);
-  }
-
-  // ranks
-  const ranksId = [];
-  for (let x = 0; x < fakeDatas.ranks.length; x++) {
-    const createdRank = await prisma.rank.create({ data: fakeDatas.ranks[x] });
-    ranksId.push(createdRank.id);
   }
 
   // userFriends && liveInfo && liveInfoType 
@@ -176,7 +180,7 @@ async function main() {
 
     const numberOfRates = faker.number.int({ min: 1, max: 5 });
     for (let n = 0; n < numberOfRates; n++) {
-    let randomRateCommentId = Math.floor(Math.random() * fakeDatas.categories.length);
+      let randomRateCommentId = Math.floor(Math.random() * fakeDatas.categories.length);
 
       const rate = {
         value: faker.number.int({ min: 1, max: 5 }),
@@ -195,14 +199,19 @@ async function main() {
       userId: usersId[randomUserId],
     };
 
-    const categoryPlace = {
-      placeId: placesId[randomPlaceId],
-      categoryId: categoriesId[randomCategoryId],
-    };
-
     favoritesPlaceUser.push(favoritePlaceUser);
     reports.push(report);
     favoriteDestinations.push(favoriteDestination);
+  }
+
+  for (let n = 0; n < placesId.length; n++) {
+    let randomCategoryId = Math.floor(Math.random() * categoriesId.length);
+
+    const categoryPlace = {
+      placeId: placesId[n],
+      categoryId: categoriesId[randomCategoryId],
+    };
+
     categoriesPlaces.push(categoryPlace);
   }
 

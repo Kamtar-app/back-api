@@ -20,7 +20,7 @@ export class PlaceService {
     private readonly prismaService: PrismaService,
     private readonly Jwtservice: JwtService,
     private readonly configService: ConfigService,
-  ) {}
+  ) { }
 
   EARTH_RADIUS = 6371;
   MAX_DEGREE = 180;
@@ -33,6 +33,13 @@ export class PlaceService {
   async getOnePlace(id: number) {
     return this.prismaService.place.findUnique({
       where: { id: id },
+      include: {
+        categoryPlaces: {
+          include: {
+            category: true, // Include the actual Category information
+          },
+        },
+      },
     });
   }
 
@@ -82,9 +89,6 @@ export class PlaceService {
       coordinateList,
       maxDistance,
     );
-
-    console.log("Coordonnées d'origine :", coordinateList);
-    console.log('Coordonnées filtrées :', filteredCoordinates);
 
     let placeList = [];
 
@@ -245,9 +249,9 @@ export class PlaceService {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(latitude1 * (Math.PI / 180)) *
-        Math.cos(latitude2 * (Math.PI / 180)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos(latitude2 * (Math.PI / 180)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c;
     return distance;

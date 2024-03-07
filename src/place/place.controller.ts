@@ -29,7 +29,7 @@ export class PlaceController {
     return place;
   }
 
-  @Get('place-around-one-coordinates')
+  @Post('place-around-one-coordinates')
   placeAroundOneCoordinates(
     @Body() coordinateParameterDto: CoordinateParameterDto,
   ) {
@@ -43,8 +43,6 @@ export class PlaceController {
 
   @Post('place-around-many-coordinates')
   placeAroundManyCoordinates(@Body() coordinateListParameterDto) {
-    console.log(coordinateListParameterDto);
-
     return this.placeService.placeAroundManyCoordinates(
       coordinateListParameterDto,
     );
