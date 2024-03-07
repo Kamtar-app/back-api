@@ -39,6 +39,22 @@ export class RateService {
     });
   }
 
+  async getRatesAverageByPlace(id: number): Promise<number> {
+    const rates = await this.prismaService.rate.findMany({
+      where: {
+        placeId: id,
+      },
+      select: {
+        value: true,
+      },
+    });
+
+    const totalValues = rates.reduce((acc, rate) => acc + rate.value, 0);
+    const average = totalValues / rates.length;
+
+    return average;
+  }
+
   async createComment(data: CreateCommentDto) {
     const { content, userId, placeId, value } = data;
 
