@@ -335,5 +335,27 @@
       "address": "Porte d'Italie",
       "city": "Toulon"
     }
+  ],
+  "usersPositions": [
+    {
+      "latitude": 47.9667,
+      "longitude": -1.8
+    },
+    {
+      "latitude": 47.9667,
+      "longitude": -1.5
+    },
+    {
+      "latitude": 47.4833,
+      "longitude": -1.75
+    },
+    {
+      "latitude": 47.4333,
+      "longitude": -1.5
+    },
+    {
+      "latitude": 47.650002,
+      "longitude": -2.06667
+    }
   ]
 }

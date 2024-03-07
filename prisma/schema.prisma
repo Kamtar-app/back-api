@@ -20,11 +20,15 @@ model User {
   phoneNumber          String                @db.VarChar(25)
   email                String                @unique @db.VarChar(300)
   password             String                @db.VarChar(255)
+  latitude             Float?                @db.Float
+  longitude            Float?                @db.Float
   isVisibleOnMap       Boolean?
   createdAt            DateTime              @default(now())
   updatedAt            DateTime              @updatedAt
   role                 Role                  @relation(fields: [roleId], references: [id])
+  rank                 Rank                  @relation(fields: [rankId], references: [id])
   roleId               Int
+  rankId               Int
   places               Place[]
   rates                Rate[]
   Reports              Report[]
@@ -97,6 +101,7 @@ model Rank {
   name       String @db.VarChar(50)
   iconPath   String @db.Text
   importance Int
+  users      User[]
 }
 
 model Report {

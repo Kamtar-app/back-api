@@ -15,11 +15,24 @@ export class UserService {
     private readonly prismaService: PrismaService,
     private readonly Jwtservice: JwtService,
     private readonly configService: ConfigService,
-  ) {}
+  ) { }
 
   async getOneUser(id: number) {
     return this.prismaService.user.findUnique({
       where: { id: id },
+      include: {
+        rank: true
+      },
+    });
+  }
+
+  async getAllUserWithLimit(limit: number) {
+    return await this.prismaService.user.findMany({
+      skip: 0,
+      take: limit,
+      include: {
+        rank: true
+      },
     });
   }
 }

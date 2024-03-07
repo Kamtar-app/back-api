@@ -37,7 +37,6 @@ export class RateService {
     const rates = this.prismaService.rate.findMany({
       where: { placeId: id },
     });
-    console.log(rates);
   }
 
   async createComment(data: CreateCommentDto) {
