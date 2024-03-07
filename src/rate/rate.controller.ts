@@ -33,7 +33,7 @@ export class RateController {
 
   @Get('/average/:id')
   getRatesAverage(@Param('id', ParseIntPipe) id: number) {
-    const average = this.rateService.getRatesAverage(+id);
+    const average = this.rateService.getRatesAverageByPlace(+id);
     return average;
   }
 
