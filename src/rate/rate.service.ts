@@ -30,6 +30,9 @@ export class RateService {
       include: {
         user: true,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
   }
 
