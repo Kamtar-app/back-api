@@ -14,18 +14,22 @@ model User {
   id                   Int                   @id @default(autoincrement())
   firstname            String                @db.VarChar(50)
   lastname             String                @db.VarChar(50)
+  imageUrl             String                @db.Text
   companyName          String?               @db.VarChar(255)
   siret                String?               @db.VarChar(20)
   phoneNumber          String                @db.VarChar(25)
   email                String                @unique @db.VarChar(300)
   password             String                @db.VarChar(255)
+  latitude             Float?                @db.Float
+  longitude            Float?                @db.Float
   isVisibleOnMap       Boolean?
   createdAt            DateTime              @default(now())
   updatedAt            DateTime              @updatedAt
   role                 Role                  @relation(fields: [roleId], references: [id])
+  rank                 Rank                  @relation(fields: [rankId], references: [id])
   roleId               Int
+  rankId               Int
   places               Place[]
-  comments             Comment[]
   rates                Rate[]
   Reports              Report[]
   Trucks               Truck[]
@@ -58,32 +62,32 @@ model Place {
   isCertificated     Boolean
   isValidated        Boolean
   openHours          String              @db.Text
-  averageRates       Float               @db.Float
+  imageUrl           String              @db.Text
   createdAt          DateTime            @default(now())
   user               User                @relation(fields: [userId], references: [id])
   userId             Int
-  comments           Comment[]
   rates              Rate[]
   reports            Report[]
   categoryPlaces     CategoriesPlaces[]
   favoritePlacesUser FavoritePlaceUser[]
 }
 
-model Comment {
-  id              Int       @id @default(autoincrement())
-  content         String    @db.Text
-  createdAt       DateTime  @default(now())
-  user            User      @relation(fields: [userId], references: [id])
-  userId          Int
-  place           Place     @relation(fields: [placeId], references: [id])
-  placeId         Int
-  parentCommentId Int?
-  parentComment   Comment?  @relation("ParentComment", fields: [parentCommentId], references: [id])
-  responses       Comment[] @relation("ParentComment")
-}
+// model Comment {
+//   id              Int       @id @default(autoincrement())
+//   content         String    @db.Text
+//   createdAt       DateTime  @default(now())
+//   user            User      @relation(fields: [userId], references: [id])
+//   userId          Int
+//   place           Place     @relation(fields: [placeId], references: [id])
+//   placeId         Int
+//   parentCommentId Int?
+//   parentComment   Comment?  @relation("ParentComment", fields: [parentCommentId], references: [id])
+//   responses       Comment[] @relation("ParentComment")
+// }
 
 model Rate {
   id        Int      @id @default(autoincrement())
+  content   String   @db.Text
   value     Int      @db.TinyInt
   createdAt DateTime @default(now())
   place     Place    @relation(fields: [placeId], references: [id])
@@ -95,8 +99,9 @@ model Rate {
 model Rank {
   id         Int    @id @default(autoincrement())
   name       String @db.VarChar(50)
-  iconPath   String @db.VarChar(300)
+  iconPath   String @db.Text
   importance Int
+  users      User[]
 }
 
 model Report {

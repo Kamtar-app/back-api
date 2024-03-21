@@ -20,7 +20,8 @@ export class AuthService {
   ) {}
 
   async signup(signupDto: SignupDto) {
-    const { firstname, lastname, phoneNumber, email, password } = signupDto;
+    const { firstname, lastname, imageUrl, phoneNumber, email, password } =
+      signupDto;
 
     // find user by email
     const user = await this.prismaService.user.findUnique({ where: { email } });
@@ -37,12 +38,14 @@ export class AuthService {
         firstname,
         lastname,
         companyName: signupDto?.companyName,
+        imageUrl,
         siret: signupDto?.siret,
         phoneNumber,
         email,
         password: hash,
         isVisibleOnMap: signupDto?.isVisibleOnMap,
         roleId: signupDto.roleId,
+        rankId: 1,
       },
     });
 

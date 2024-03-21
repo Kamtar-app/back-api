@@ -1,0 +1,361 @@
+{
+  "roles": [
+    {
+      "roleName": "Administrateur"
+    },
+    {
+      "roleName": "Contributeur"
+    },
+    {
+      "roleName": "Utilisateur"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Parking"
+    },
+    {
+      "name": "Restaurant"
+    },
+    {
+      "name": "Station escence"
+    },
+    {
+      "name": "Douche"
+    },
+    {
+      "name": "Sanitaire"
+    },
+    {
+      "name": "Garage"
+    },
+    {
+      "name": "Truck wash"
+    },
+    {
+      "name": "Entreprise"
+    }
+  ],
+  "ranks": [
+    {
+      "name": "rank1-1",
+      "iconPath": "https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fda4adb3a-222d-4fb3-9472-c0c3a67d8e03%2F6f67c3f3-4374-4f7c-84d6-a56f76395d53%2F7e525bea-53d6-4f30-9f35-ec9aee1f4ebc.png?table=block&id=e50706da-35f2-4e4d-a592-472cca8f438f&spaceId=da4adb3a-222d-4fb3-9472-c0c3a67d8e03&width=1920&userId=38ee4e2e-ff55-4f06-97de-c3f4221c6931&cache=v2",
+      "importance": 1
+    },
+    {
+      "name": "rank1-2",
+      "iconPath": "https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fda4adb3a-222d-4fb3-9472-c0c3a67d8e03%2F9e27acd2-9005-42bb-9f11-08f678ac187d%2F3cfc7a34-d9e5-4694-8943-05d68f01e651.png?table=block&id=7a8744e1-65e2-4bb6-82f7-d7fe7f85b701&spaceId=da4adb3a-222d-4fb3-9472-c0c3a67d8e03&width=1920&userId=38ee4e2e-ff55-4f06-97de-c3f4221c6931&cache=v2",
+      "importance": 1
+    },
+    {
+      "name": "rank1-3",
+      "iconPath": "https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fda4adb3a-222d-4fb3-9472-c0c3a67d8e03%2Fa9b37fa6-1d67-462b-a904-f4e1f30a510d%2Fc7fe48cf-246d-4f73-b8cb-4bcca6472d8b.png?table=block&id=1076ed62-3267-4f28-81a1-9ed597168aa3&spaceId=da4adb3a-222d-4fb3-9472-c0c3a67d8e03&width=1920&userId=38ee4e2e-ff55-4f06-97de-c3f4221c6931&cache=v2",
+      "importance": 1
+    },
+    {
+      "name": "rank2-1",
+      "iconPath": "https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fda4adb3a-222d-4fb3-9472-c0c3a67d8e03%2F88920304-bcb9-4eb5-9644-657a6892874b%2F60fa68c0-dedf-4ddb-9b24-880b594e38ca.png?table=block&id=fc6f1dce-f37d-4e31-bfbe-d2a769f3c8cf&spaceId=da4adb3a-222d-4fb3-9472-c0c3a67d8e03&width=1920&userId=38ee4e2e-ff55-4f06-97de-c3f4221c6931&cache=v2",
+      "importance": 2
+    },
+    {
+      "name": "rank2-2",
+      "iconPath": "https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fda4adb3a-222d-4fb3-9472-c0c3a67d8e03%2F2e9a62bb-d2b8-4178-b991-d6aedea68fd0%2Fdea90fa8-5fe5-4aeb-8007-2819b610c0f8.png?table=block&id=7a1fc043-7ddb-4431-a80e-cf98a04a8cfd&spaceId=da4adb3a-222d-4fb3-9472-c0c3a67d8e03&width=1920&userId=38ee4e2e-ff55-4f06-97de-c3f4221c6931&cache=v2",
+      "importance": 2
+    },
+    {
+      "name": "rank2-3",
+      "iconPath": "https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fda4adb3a-222d-4fb3-9472-c0c3a67d8e03%2Fdb1a8728-7c1e-4310-a54d-caa66c6e4f43%2F0013a415-e456-432a-8b8c-d5455fce9642.png?table=block&id=edfb4910-4612-4def-b3f3-b5be10b3475a&spaceId=da4adb3a-222d-4fb3-9472-c0c3a67d8e03&width=1920&userId=38ee4e2e-ff55-4f06-97de-c3f4221c6931&cache=v2",
+      "importance": 3
+    },
+    {
+      "name": "rank3-1",
+      "iconPath": "https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fda4adb3a-222d-4fb3-9472-c0c3a67d8e03%2F5a81bbb6-cf39-4e93-989f-6bf8da463231%2F4e380930-4c71-4b1b-8603-b0abb496ab17.png?table=block&id=c3a54de1-8f65-4453-87d4-7aab49c99cf4&spaceId=da4adb3a-222d-4fb3-9472-c0c3a67d8e03&width=1920&userId=38ee4e2e-ff55-4f06-97de-c3f4221c6931&cache=v2",
+      "importance": 4
+    },
+    {
+      "name": "rank4-1",
+      "iconPath": "https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fda4adb3a-222d-4fb3-9472-c0c3a67d8e03%2F5771fc2e-f4da-42dc-8e90-e6480330bd90%2F67f92d27-202b-4967-bf8f-d4b95da05a33.png?table=block&id=fb85caf3-1552-4877-9ef8-086fe472a171&spaceId=da4adb3a-222d-4fb3-9472-c0c3a67d8e03&width=1920&userId=38ee4e2e-ff55-4f06-97de-c3f4221c6931&cache=v2",
+      "importance": 4
+    }
+  ],
+  "rateContent": [
+    {
+      "content": "Un endroit agréable pour faire une pause et se détendre pendant le trajet."
+    },
+    {
+      "content": "Un espace tranquille au cœur de la nature, idéal pour une pause revigorante."
+    },
+    {
+      "content": "Des installations propres et bien entretenues pour une pause sanitaire."
+    },
+    {
+      "content": "Un endroit pratique pour trouver tout ce dont vous avez besoin en cours de route."
+    },
+    {
+      "content": "Une station-service pour faire le plein rapidement et reprendre la route."
+    },
+    {
+      "content": "Un lieu paisible avec des commodités pour une pause relaxante."
+    },
+    {
+      "content": "Des toilettes accessibles rapidement pour une pause hygiénique."
+    },
+    {
+      "content": "Une boutique sur la route pour vos besoins de voyage spontanés."
+    },
+    {
+      "content": "Un café accueillant pour une pause caféine pendant votre trajet."
+    },
+    {
+      "content": "Un endroit pratique pour le carburant et une pause repas."
+    },
+    {
+      "content": "Une aire de repos avec une vue pittoresque pour une pause agréable."
+    },
+    {
+      "content": "Un endroit pour trouver des articles essentiels lors de votre voyage."
+    },
+    {
+      "content": "Une station-service avec un service rapide pour vos besoins en carburant."
+    },
+    {
+      "content": "Un endroit calme pour une pause tranquille loin de l'agitation."
+    },
+    {
+      "content": "Des installations sanitaires pratiques pour une pause rapide."
+    },
+    {
+      "content": "Une boulangerie pour des pauses gourmandes pendant votre trajet."
+    },
+    {
+      "content": "Un petit marché pour vos besoins d'approvisionnement en cours de route."
+    },
+    {
+      "content": "Une station-service avec service au volant pour une expérience rapide."
+    },
+    {
+      "content": "Un lieu apaisant pour une pause sereine pendant votre voyage."
+    },
+    {
+      "content": "Des toilettes rapides et bien entretenues pour une pause hygiénique."
+    },
+    {
+      "content": "Un supermarché disponible à toute heure pour vos besoins en route."
+    },
+    {
+      "content": "Une station-service avec des options de carburant rapide."
+    },
+    {
+      "content": "Une aire de repos paisible pour une pause tranquille."
+    },
+    {
+      "content": "Des installations sanitaires de qualité pour un confort optimal."
+    }
+  ],
+  "places": [
+    {
+      "name": "Le Relais de la Pomme",
+      "description": "Restaurant traditionnel français",
+      "phoneNumber": "02 99 99 99 99",
+      "email": "contact@lerelaisdelapomme.com",
+      "latitude": 47.9979,
+      "longitude": -1.5471,
+      "zipCode": "44300",
+      "address": "Route de Nantes",
+      "city": "Rennes",
+      "isCertificated": true,
+      "isValidated": true,
+      "openHours": "09:00 - 22:00",
+      "imageUrl": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Supermarché Le Panier",
+      "description": "Supermarché avec large gamme de produits",
+      "phoneNumber": "02 98 98 98 98",
+      "email": "contact@lepanier.com",
+      "latitude": 47.8795,
+      "longitude": -1.9295,
+      "zipCode": "44300",
+      "address": "Rue des Acacias",
+      "city": "Loroux-Bottereau",
+      "isCertificated": true,
+      "isValidated": true,
+      "openHours": "08:00 - 20:00",
+      "imageUrl": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Aire de repos La Croisée",
+      "description": "Aire de repos avec station-service",
+      "phoneNumber": "02 97 97 97 97",
+      "email": "contact@la-croisee.com",
+      "latitude": 47.4405,
+      "longitude": -1.9416,
+      "zipCode": "44300",
+      "address": "A11",
+      "city": "Carquefou",
+      "isCertificated": true,
+      "isValidated": true,
+      "openHours": "24/7",
+      "imageUrl": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Station Essence Total",
+      "description": "Station essence avec boutique et services",
+      "phoneNumber": "02 96 96 96 96",
+      "email": "contact@total.fr",
+      "latitude": 47.2527,
+      "longitude": -1.5546,
+      "zipCode": "44000",
+      "address": "Avenue des Trois Croix",
+      "city": "Nantes",
+      "isCertificated": true,
+      "isValidated": true,
+      "openHours": "24/7",
+      "imageUrl": "https://via.placeholder.com/150"
+    },
+    {
+      "name": "Station Essence Shell",
+      "description": "Station essence avec boutique et services",
+      "phoneNumber": "02 95 95 95 95",
+      "email": "contact@shell.fr",
+      "latitude": 47.2241,
+      "longitude": -1.5424,
+      "zipCode": "44000",
+      "address": "Route de Paris",
+      "city": "Nantes",
+      "isCertificated": true,
+      "isValidated": true,
+      "openHours": "06:00 - 23:00",
+      "imageUrl": "https://via.placeholder.com/150"
+    }
+  ],
+  "destinations": [
+    {
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "zipCode": "75000",
+      "address": "Champs-Élysées",
+      "city": "Paris"
+    },
+    {
+      "latitude": 43.2965,
+      "longitude": 5.3698,
+      "zipCode": "13000",
+      "address": "Vieux-Port",
+      "city": "Marseille"
+    },
+    {
+      "latitude": 45.75,
+      "longitude": 4.85,
+      "zipCode": "69000",
+      "address": "Bellecour",
+      "city": "Lyon"
+    },
+    {
+      "latitude": 43.6045,
+      "longitude": 1.4440,
+      "zipCode": "31000",
+      "address": "Place du Capitole",
+      "city": "Toulouse"
+    },
+    {
+      "latitude": 43.7102,
+      "longitude": 7.2620,
+      "zipCode": "06000",
+      "address": "Promenade des Anglais",
+      "city": "Nice"
+    },
+    {
+      "latitude": 47.2184,
+      "longitude": -1.5536,
+      "zipCode": "44000",
+      "address": "Île de Nantes",
+      "city": "Nantes"
+    },
+    {
+      "latitude": 48.5734,
+      "longitude": 7.7521,
+      "zipCode": "67000",
+      "address": "Petite France",
+      "city": "Strasbourg"
+    },
+    {
+      "latitude": 43.6110,
+      "longitude": 3.8767,
+      "zipCode": "34000",
+      "address": "Place de la Comédie",
+      "city": "Montpellier"
+    },
+    {
+      "latitude": 44.8378,
+      "longitude": -0.5792,
+      "zipCode": "33000",
+      "address": "Place de la Bourse",
+      "city": "Bordeaux"
+    },
+    {
+      "latitude": 50.6292,
+      "longitude": 3.0573,
+      "zipCode": "59000",
+      "address": "Grand Place",
+      "city": "Lille"
+    },
+    {
+      "latitude": 48.1173,
+      "longitude": -1.6778,
+      "zipCode": "35000",
+      "address": "Parlement de Bretagne",
+      "city": "Rennes"
+    },
+    {
+      "latitude": 49.2583,
+      "longitude": 4.0317,
+      "zipCode": "51100",
+      "address": "Cathédrale Notre-Dame",
+      "city": "Reims"
+    },
+    {
+      "latitude": 49.4938,
+      "longitude": 0.1077,
+      "zipCode": "76600",
+      "address": "Le Vieux Bassin",
+      "city": "Le Havre"
+    },
+    {
+      "latitude": 45.4397,
+      "longitude": 4.3872,
+      "zipCode": "42000",
+      "address": "Place Jean Jaurès",
+      "city": "Saint-Étienne"
+    },
+    {
+      "latitude": 43.1242,
+      "longitude": 5.9280,
+      "zipCode": "83000",
+      "address": "Porte d'Italie",
+      "city": "Toulon"
+    }
+  ],
+  "usersPositions": [
+    {
+      "latitude": 47.9667,
+      "longitude": -1.8
+    },
+    {
+      "latitude": 47.9667,
+      "longitude": -1.5
+    },
+    {
+      "latitude": 47.4833,
+      "longitude": -1.75
+    },
+    {
+      "latitude": 47.4333,
+      "longitude": -1.5
+    },
+    {
+      "latitude": 47.650002,
+      "longitude": -2.06667
+    }
+  ]
+}

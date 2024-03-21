@@ -2,49 +2,105 @@
 
 ## Installation
 
+### Pré-requis sans docker
+
+- node
+- npm
+- mariadb
+
+### Installation avec docker
+
+#### Insallation des conteneurs
+
+Build de l'image et lancement des conteneurs
+
 ```bash
-$ npm install
-
-# ajouter la migration à la bdd
-$ npx prisma db push
-
-# générer et ajouter de fausses données dans la bdd
-$ npx prisma db seed
+docker-compose up --build -d
 ```
 
-## Prisma
+#### Installation du projet
+
+Pour installer l'app avec docker il est nécéssaire suivre les mêmes étapes que sans docker mais de pré-fixer les commandes par :
 
 ```bash
-# visualiser la bdd et les données
-$ npx prisma studio
-
-# ajouter la migration à la bdd : modifier la bdd en ajoutant / supprimant des colonnes, tables ...
-$ npx prisma db push
-
-# lancer une migration
-$ npx prisma migrate dev
-
-# --no-spec => ignorer le fichier de test
-# créer un nouveau module
-$ nest g mo nomModule --no-spec
-
-# créer un nouveau controller
-$ nest g co nomController --no-spec
-
-# créer un nouveau service
-$ nest g s nomService --no-spec
+docker exec kamtar-app ...
 ```
 
-## Fixtures
+### Installation classique
+
+Installation des dépendances du projet
 
 ```bash
-# générer et ajouter de fausses données dans la bdd
-$ npx prisma db seed
+npm install
+```
+
+Mettre à jour la base de données
+
+```bash
+npx prisma db push
+```
+
+Génération des données fictives dans la bdd
+
+```bash
+npx prisma db seed
+```
+
+### Commandes Prisma
+
+Visualiser la bdd et les données
+
+```bash
+npx prisma studio
+```
+
+Ajouter la migration à la bdd : modifier la bdd en ajoutant / supprimant des colonnes, tables ...
+
+```bash
+npx prisma db push
+```
+
+Lancer les migrations
+
+```bash
+npx prisma migrate dev
+```
+
+Générer et ajouter les données de tests dans la BDD
+
+```bash
+npx prisma db seed
+```
+
+Lancement de l'application 
+
+```bash
+npm run start:dev
+```
+
+### Commandes Nest
+
+Créer un nouveau module
+
+```bash
+nest g mo {moduleName} --no-spec
+```
+
+Créer un nouveau controller
+
+```bash
+nest g co {controllerName} --no-spec
+```
+
+Créer un nouveau service
+
+```bash
+nest g s {serviceName} --no-spec
 ```
 
 ## Packages
 
-- bcrypt : hash password
-- JWT token : use to generate token
-- OpenAPI (Swagger) : a language-agnostic definition format used to describe RESTful APIs
-- FakerJs : library that generates fake (but reasonable) data
+- [bcrypt](https://fr.wikipedia.org/wiki/Bcrypt) : Outil d'hashage de mot de passe
+- [JWT token](https://jwt.io/) : Outil d'authentification par token
+- [OpenAPI (Swagger)](https://swagger.io/specification/) : Outil de description de l'API
+- [FakerJs](https://fakerjs.dev/) : Librairie de générations données fictives
